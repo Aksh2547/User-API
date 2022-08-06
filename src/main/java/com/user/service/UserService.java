@@ -2,15 +2,15 @@ package com.user.service;
 
 import java.util.List;
 
-import com.user.dto.UserDto;
+import com.user.model.UserModel;
 import com.user.utils.ResponseModel;
 
 public interface UserService {
 	
 	//create User		
-	ResponseModel createNewUser(UserDto userDto);
+	ResponseModel createNewUser(UserModel userModel);
 	
-	public List<UserDto> getLatestUser();
+	public List<UserModel> getLatestUser();
 		
 	
 

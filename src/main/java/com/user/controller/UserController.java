@@ -1,6 +1,8 @@
 package com.user.controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.dto.UserDto;
+import com.user.model.UserModel;
 import com.user.service.UserService;
 import com.user.utils.CommonServiceHttpMessage;
 import com.user.utils.ResponseModel;
@@ -24,15 +26,13 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/register/user")
-	public ResponseModel createNewUser(@RequestBody UserDto userDto) {
-
-		return userService.createNewUser(userDto);
-
+	public ResponseModel createNewUser(@Valid @RequestBody UserModel userModel) {
+		return userService.createNewUser(userModel);
 	}
 
 	@GetMapping("/getLastUser")
 	public ResponseEntity<ResponseModel> getAllBatchPaymentList() {
-		ResponseModel rs = ResponseStatus.create(CommonServiceHttpMessage.USER_LISTED, userService.getLatestUser(),
+		ResponseModel rs = ResponseStatus.create(CommonServiceHttpMessage.USER_FETCH, userService.getLatestUser(),
 				HttpStatus.OK, HttpStatus.OK.value());
 		return new ResponseEntity<>(rs, HttpStatus.OK);
 	}
